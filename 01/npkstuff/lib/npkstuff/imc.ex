@@ -1,15 +1,18 @@
 defmodule Npkstuff.IMC do
-  def calcular(nome_ficheiro) do
+  def calcular(%{"filename" => nome_ficheiro}) do
     nome_ficheiro
     |> File.read()
     |> tratar_ficheiro
   end
 
   defp tratar_ficheiro({:ok, conteudo}) do
-    conteudo
-    |> String.split("\n")
-    |> Enum.map(fn linha -> processar_linha(linha) end)
-    |> Enum.into(%{})
+    dados =
+      conteudo
+      |> String.split("\n")
+      |> Enum.map(fn linha -> processar_linha(linha) end)
+      |> Enum.into(%{})
+
+    {:ok, dados}
   end
 
   defp tratar_ficheiro({:error, _motivo}) do

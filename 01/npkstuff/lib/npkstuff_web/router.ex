@@ -7,6 +7,8 @@ defmodule NpkstuffWeb.Router do
 
   scope "/api", NpkstuffWeb do
     pipe_through :api
+
+    get "/", IMCController, :index
   end
 
   # Enables LiveDashboard only for development
